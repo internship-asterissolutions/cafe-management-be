@@ -93,7 +93,7 @@ namespace mycafe.Controllers
 
         private bool UserExists(int id)
         {
-            return _dbContext.Users.Any(e => e.ID == id);
+            return _dbContext.Users.Any(e => e.ID == id); 
         }
 
 

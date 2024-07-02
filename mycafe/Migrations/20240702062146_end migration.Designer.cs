@@ -11,8 +11,8 @@ using mycafe.Data;
 namespace mycafe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240701070532_final migration")]
-    partial class finalmigration
+    [Migration("20240702062146_end migration")]
+    partial class endmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,13 @@ namespace mycafe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("Emailid")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,15 +47,9 @@ namespace mycafe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone_no")
-                        .HasColumnType("int");
-
-                    b.Property<string>("address")
+                    b.Property<string>("Phone_no")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("age")
-                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

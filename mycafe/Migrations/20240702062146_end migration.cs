@@ -5,7 +5,7 @@
 namespace mycafe.Migrations
 {
     /// <inheritdoc />
-    public partial class finalmigration : Migration
+    public partial class endmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,9 +18,9 @@ namespace mycafe.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Emailid = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone_no = table.Column<int>(type: "int", nullable: false),
-                    age = table.Column<int>(type: "int", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Phone_no = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
