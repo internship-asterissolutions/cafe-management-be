@@ -49,32 +49,34 @@ namespace mycafe.Controllers
 
 
         [HttpPut("Update")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser( User user)
         {
-
-
             _dbContext.Entry(user).State = EntityState.Modified;
 
             try
             {
                 await _dbContext.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {e.Message}");
             }
 
-            return NoContent();
+            return Ok(user); 
         }
 
+        [HttpGet("GetUserById")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _dbContext.Users.FindAsync(id);
 
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -91,10 +93,7 @@ namespace mycafe.Controllers
             return NoContent();
         }
 
-        private bool UserExists(int id)
-        {
-            return _dbContext.Users.Any(e => e.ID == id); 
-        }
+       
 
 
     }

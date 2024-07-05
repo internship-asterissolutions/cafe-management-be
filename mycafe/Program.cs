@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+
 using mycafe.Data;
 
 namespace mycafe
@@ -20,6 +21,18 @@ namespace mycafe
 
             var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -29,6 +42,7 @@ namespace mycafe
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowSpecificOrigins");
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
